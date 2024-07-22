@@ -9,7 +9,8 @@ Works for any GCP metric/service
 
 Install python library (Python 3+)
 
-pip3 install --upgrade google-cloud-monitoring 
+pip3 install --upgrade google-cloud-monitoring
+
 pip3 install pyyaml==5.4.1
 
 
