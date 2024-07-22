@@ -1,0 +1,41 @@
+#prefix used to show metrics in AppDynamics
+metricPrefix: "Server|Component:TAS|Custom Metrics|GCP"
+#metricPrefix: "Custom Metrics|GCP"
+
+credentials:
+     subscriptionId: "b320ea8d-17cc-4a9e-91ed-d9e46d4dbd75"
+
+project: "gcp-appdapjcgcpproj-nprd-90875"
+
+
+#
+# Specify the service namespace and optional label (to add to metric path). This can be tested by running the python script directly and printing the labels associated with a namespace.
+# Each Service below will use a separate thread.
+#
+
+services:
+   - namespace: "compute.googleapis.com/instance"               # Please put the required resourceGroups only
+     label: ["instance_name","device_name"]                     #identifier to be added to metric path, seperarted by comma eg.. ["a","b"] will have namespace|a|b as part of metric path
+     excludeLabels: [""]
+   - namespace: "networking.googleapis.com"
+     label: ["protocol","remote_location_type","local_network_interface","local_network"]
+     excludeLabels: [""]
+#   - namespace: "kubernetes.io/container"
+#     label: ["cluster_name","namespace_name","container_name","pod_name"]
+#     excludeLabels: ["aaa"]
+   - namespace: "kubernetes.io/node"
+     label: ["cluster_name","node_name"]
+     excludeLabels: ["aaa"]
+   - namespace: "kubernetes.io/pod"
+     label: ["cluster_name","namespace_name","pod_name"]
+     excludeLabels: ["aaa"]
+   - namespace: "kubernetes.io/nginx"
+     label: ["cluster_name","namespace_name","pod_name"]
+     excludeLabels: ["aaa"]
+   - namespace: "serviceruntime.googleapis.com/quota"
+     label: [""]
+     excludeLabels: [""]
+#   - namespace: "cloudsql.googleapis.com/database"
+#     label: ["instance_name","device_name"]
+#     excludeLabels: ["aaa"]
+
