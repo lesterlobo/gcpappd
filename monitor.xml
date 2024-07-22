@@ -1,0 +1,19 @@
+<monitor>
+    <name>GCPMonitor</name>
+       <type>managed</type>
+	   <enabled>true</enabled>
+        <description>GCP Monitor</description>
+		<display-name>GCP Monitor</display-name>
+        <monitor-configuration></monitor-configuration>
+        <monitor-run-task>
+           <!--  Edit execution-style as needed. -->
+           <execution-style>periodic</execution-style>
+           <name>Run</name>
+           <type>executable</type>
+           <task-arguments></task-arguments>
+            <executable-task>
+                <type>file</type>
+                 <file os-type="mac">gcp_monitor.sh</file>
+           </executable-task>
+         </monitor-run-task>
+</monitor>
