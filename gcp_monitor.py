@@ -1,3 +1,10 @@
+##########################################################
+### AppDynamics Extension to Pull GCP Platform monitoring metrics
+### https://cloud.google.com/monitoring/api/v3#monitored_resources
+### https://cloud.google.com/monitoring/api/ref_v3/rest/
+### https://developers.google.com/workspace/guides/create-credentials#create_credentials_for_a_service_account
+##########################################################
+
 from google.cloud import monitoring_v3
 import asyncio
 import time
@@ -30,7 +37,7 @@ metric_list = []
 
 def list_metric_descriptors():
     for descriptor in client.list_metric_descriptors(name=project_name):
-        print(descriptor.type)
+        #print(descriptor.type)
         metric_list.append(descriptor.type)
 
 class myThread (threading.Thread):
@@ -51,7 +58,7 @@ def print_time(m,nspace,labels,exclLabels):
     print('----',m,nspace,labels,exclLabels)
 
 def list_time_series(m,nspace,labels,exclLabels):
-    print(m,nspace,labels,exclLabels,'******************')
+    #print(m,nspace,labels,exclLabels,'******************')
     global apiCallCounter
     global metricCounter
     interval = monitoring_v3.TimeInterval()
@@ -82,14 +89,19 @@ def list_time_series(m,nspace,labels,exclLabels):
             elif result.resource.labels[l]:
                 label_path = label_path + '|' + result.resource.labels[l]
         p = nspace.replace("/","|") + label_path + m.partition(nspace)[2].replace("/","|")
+       
+        val = 0
         for excl in exclLabels:
+            #print(excl and excl)
             if excl and excl in p:
                 continue
             else:
+
                 if result.points[0].value.double_value:
                     val = result.points[0].value.double_value
                 elif result.points[0].value.int64_value:
                     val = result.points[0].value.int64_value
+               
                 print('name='+METRIC_PREFIX+'|'+p+',value='+f'{int(val)}')
                 metricCounter += 1
 
